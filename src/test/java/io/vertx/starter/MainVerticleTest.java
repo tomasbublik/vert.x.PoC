@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static io.common.ConstKt.PORT;
+
 @RunWith(VertxUnitRunner.class)
 public class MainVerticleTest {
 
@@ -28,7 +30,7 @@ public class MainVerticleTest {
   @Test
   public void testThatTheServerIsStarted(TestContext tc) {
     Async async = tc.async();
-    vertx.createHttpClient().getNow(8080, "localhost", "/", response -> {
+    vertx.createHttpClient().getNow(PORT, "localhost", "/", response -> {
       tc.assertEquals(response.statusCode(), 200);
       response.bodyHandler(body -> {
         tc.assertTrue(body.length() > 0);
@@ -36,5 +38,4 @@ public class MainVerticleTest {
       });
     });
   }
-
 }

@@ -1,5 +1,7 @@
 package io.vertx.starter
 
+import io.common.DELAY_TIME
+import io.common.PORT
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Handler
 import io.vertx.core.Vertx
@@ -10,12 +12,15 @@ class MainVerticleKotlin : AbstractVerticle() {
   override fun start() {
     vertx.createHttpServer()
       .requestHandler(Handler<HttpServerRequest> { this.handleResponse(it) })
-      .listen(8080)
+      .listen(PORT)
   }
 
   private fun handleResponse(req: HttpServerRequest) {
-    // println("Kotlin: Response received")
-    req.response().end("Kotlin: Hello Vert.x!")
+    vertx.setTimer(DELAY_TIME) {
+      println("Responding from Vert.x...")
+      req.response().statusCode = 200
+      req.response().end("Kotlin: Hello Vert.x!")
+    }
   }
 }
 

@@ -1,0 +1,23 @@
+name: CI Workflow
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - feature/*
+      - master
+
+jobs:
+  test:
+    # Job name is Testing
+    name: Testing
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      # This step checks out a copy of your repository.
+      - name:
+        id: test
+        uses: actions/checkout@master
+        run: echo "The time was ${{ steps.test.outputs.time }}"
+
+      - name: Run tests
+        run: ./gradlew test
