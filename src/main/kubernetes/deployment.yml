@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vertx-sample-deployment
+  labels:
+    app: vertx-sample-app
+spec:
+  selector:
+    matchLabels:
+      app: vertx-sample-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: vertx-sample-app
+    spec:
+      containers:
+        - name: vertx-sample-container
+          image: 742644190944.dkr.ecr.eu-central-1.amazonaws.com/tomas-bublik:spring_boot
+          imagePullPolicy: "Always"
+          resources:
+            requests:
+              memory: 512Mi
+            limits:
+              memory: 768Mi
+          env:
+            - name: FOR_GODS_SAKE_PLEASE_REDEPLOY
+              value: 'THIS_STRING_IS_REPLACED_DURING_BUILD'
+            - name: TZ
+              value: CST-1
+            - name: GET_HOSTS_FROM
+              value: dns
+              # Using `GET_HOSTS_FROM=dns` requires your cluster to
+              # provide a dns service. As of Kubernetes 1.3, DNS is a built-in
+              # service launched automatically. However, if the cluster you are using
+              # does not have a built-in DNS service, you can instead
+              # access an environment variable to find the master
+              # service's host. To do so, comment out the 'value: dns' line above, and
+              # uncomment the line below:
+              # value: env
+          ports:
+            - containerPort: 8080
