@@ -30,6 +30,6 @@ io.vertx.starter.MainVerticleKotlinKt
 to run the default Vert.X endpoint which similar to the previous ine expects the URL "/"
 
 ```java
-io.spring.boot.starter.StarterApplication
+io.spring.boot.starter.StarterApplicationKt
 ```
 to run the Spring Boot project and enter the URL of "/" to get the general Spring Boot response, or "/coroutines" to get the Coroutines version, or "/mvc_coroutines" to get the resopnse from the Spring Boot MVC Coroutines facility.  
