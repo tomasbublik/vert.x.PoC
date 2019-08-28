@@ -49,7 +49,8 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-  implementation("org.springframework.boot:spring-boot-starter-web")
+  // non-tomcat version => Netty
+  //implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springframework.kotlin:spring-kotlin-coroutine:0.3.7")
   implementation("org.springframework.kotlin:spring-webmvc-kotlin-coroutine:0.3.7")
