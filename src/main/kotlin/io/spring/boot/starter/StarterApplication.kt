@@ -1,5 +1,6 @@
 package io.spring.boot.starter
 
+import io.Logging
 import io.common.DELAY_TIME
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -19,9 +20,26 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
 import java.lang.Thread.sleep
+import javax.annotation.PreDestroy
 
 @SpringBootApplication
-class StarterApplication
+class StarterApplication : Logging {
+  @PreDestroy
+  fun tearDown() {
+    log.info("Shutting down the app ")
+    log.info("Countdown started ")
+
+    try {
+      for (i in 1..40) {
+        log.info("Second: $i")
+        sleep(1000)
+      }
+    } catch (e: Exception) {
+      log.error("Exception during shutdown: ${e.message}")
+    }
+    log.info("Now it's the real end")
+  }
+}
 
 fun main(args: Array<String>) {
   runApplication<StarterApplication>(*args)
@@ -31,7 +49,8 @@ fun main(args: Array<String>) {
 @EnableCaching
 @EnableCoroutine(
   proxyTargetClass = false, mode = AdviceMode.PROXY,
-  order = Ordered.LOWEST_PRECEDENCE, schedulerDispatcher = "")
+  order = Ordered.LOWEST_PRECEDENCE, schedulerDispatcher = ""
+)
 class ConfigClass
 
 @RestController
